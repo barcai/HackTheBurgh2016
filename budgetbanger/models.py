@@ -11,7 +11,6 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key = True)
     user_name = db.Column(db.String(100), unique = True)
     email = db.Column(db.String(120), unique = True)
-    is_admin = db.Column(db.Boolean, default=False)
 
     password_hash = db.Column(db.String)
 
@@ -31,7 +30,6 @@ class User(db.Model, UserMixin):
         return User.query.filter_by(user_name = user_name).first()
 
     @staticmethod
-    @httpauth.verify_password
     def verify_password(user_name, password):
         if User.get_by_user_name(user_name):
             u = User.get_by_user_name(user_name)

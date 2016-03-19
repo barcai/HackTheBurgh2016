@@ -1,13 +1,13 @@
 #! /usr/bin/env python
 from flask.ext.script import Manager, Server
 
-from budgetbanger import create_app
+from budgetbanger import app
 from budgetbanger.models import User, Money
 from budgetbanger import models
 
 
 
-app = create_app('dev')
+
 manager = Manager(app)
 
 
@@ -31,7 +31,7 @@ def create_and_insert():
 
     db.create_all()
 
-    admin = User(user_name = "admin", email = "admin@admin.com", password = "admin",  is_admin=True)
+    admin = User(user_name = "admin", email = "admin@admin.com", password = "admin")
 
     db.session.add(admin)
 

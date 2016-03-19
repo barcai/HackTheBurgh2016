@@ -28,7 +28,6 @@ class ProductionConfig(Config):
 
 config_dict = {
     'dev': DevelopmentConfig,
-    'test': TestingConfig,
     'prod': ProductionConfig,
     'default': DevelopmentConfig
 }

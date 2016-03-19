@@ -12,14 +12,14 @@ db = SQLAlchemy()
 login_manager = LoginManager()
 
 
-def create_app(config_name):
 
-    app = Flask(__name__)
-    app.config.from_object(config_dict[config_name])
-    config_dict[config_name].init_app(app)
 
-    db.init_app(app)
-    #toolbar.init_app(app)
-    login_manager.init_app(app)
+app = Flask(__name__)
+app.config.from_object(config_dict["dev"])
+config_dict["dev"].init_app(app)
 
-    return app
+
+db.init_app(app)
+login_manager.init_app(app)
+
+import budgetbanger.views
