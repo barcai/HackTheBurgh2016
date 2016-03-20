@@ -13,48 +13,50 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
+
 @app.route('/')
 @app.route('/index')
 def index():
-    return "Hy"
+    # If user is logged in, show useful information here, otherwise show login and register
+    return render_template('index.html', l_form=LoginForm(), r_form=SignupForm())
 
 
-@app.route('/login', methods = ['GET', 'POST'])
+@app.route('/login', methods=['POST'])
 def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        user = User.get_by_user_name(form.user_name.data)
-        if (user is not None) and user.check_password(form.password.data):
-            login_user(user, form.remember_me.data)
+    l_form = LoginForm()
+    if l_form.validate_on_submit():
+        user = User.get_by_user_name(l_form.user_name.data)
+        if (user is not None) and user.check_password(l_form.password.data):
+            login_user(user)
             flash("Logged in successfully as {}.".format(user.user_name))
             return redirect(url_for('budget'))
-        flash('Incorrect username or password')
-    return render_template("login.html", form = form)
+    flash('Incorrect username or password')
+    return render_template('index.html', l_form=l_form, r_form=SignupForm())
 
-@app.route('/signup', methods = ['GET', 'POST'])
-def signup():
-    form = SignupForm()
-    if form.validate_on_submit():
-        user = User(email = form.email.data,
-                    user_name = form.user_name.data,
-                    password = form.password.data)
+
+@app.route('/register', methods=['POST'])
+def register():
+    r_form = SignupForm()
+    if r_form.validate_on_submit():
+        user = User(email = r_form.email.data,
+                    user_name = r_form.user_name.data,
+                    password = r_form.password.data)
         db.session.add(user)
         db.session.commit()
         flash('Welcome, {}! Please login.'.format(user.user_name))
-        return redirect(url_for('authorisation.login'))
-    return render_template("signup.html", form = form)
+        return redirect(url_for('budget'))
+    return render_template('index.html', l_form=LoginForm(), r_form=r_form)
+
+
 
 @app.route('/logout')
 @login_required
 def logout():
     logout_user()
+    
+    return redirect(url_for('index'))
 
-    # Remove session keys set by Flask-Principal
-    for key in ('identity.name', 'identity.auth_type'):
-        session.pop(key, None)
-
-    # Tell Flask-Principal the user is anonymous
-    identity_changed.send(current_app._get_current_object(), identity=AnonymousIdentity())
-
-
-    return redirect(url_for('main.index'))
+@app.route("/budget")
+@login_required
+def budget():
+    return render_template("budget.html")

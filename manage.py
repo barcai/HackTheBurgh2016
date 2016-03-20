@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 from flask.ext.script import Manager, Server
 
-from budgetbanger import app
+from budgetbanger import app, db
 from budgetbanger.models import User, Money
 from budgetbanger import models
 

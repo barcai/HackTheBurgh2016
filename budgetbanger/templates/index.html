@@ -1,175 +1,18 @@
-<html><head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Creative - Start Bootstrap Theme</title>
-    <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-    <!-- Custom Fonts -->
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css">
-    <!-- Plugin CSS -->
-    <link rel="stylesheet" href="css/animate.min.css" type="text/css">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/creative.css" type="text/css">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media
-    queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file://
-    -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head><body id="page-top">
-    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
-      <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand page-scroll" href="#page-top">Start Bootstrap</a>
-        </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <a class="btn btn-info navbar-btn navbar-right" data-toggle="modal" data-target="#signup">Sign UP</a>
-          <a class="btn btn-info navbar-btn navbar-right" data-toggle="modal" data-target="#signin">Sign in</a>
-        </div>
-        <!-- /.navbar-collapse -->
-      </div>
-      <!-- /.container-fluid -->
-    </nav>
+{% extends "base.html" %}
+  {% block content %}
     <header>
       <div class="header-content">
         <div class="header-content-inner">
-          <h1>Your Favorite Source of Free Bootstrap Themes</h1>
+          <h1 style="color: red;">Welcome to</h1><br>
+          <img class="img-responsive" src="{{ url_for('static', filename='img/BudgetBanger.png') }}">
           <hr>
-          <p>Start Bootstrap can help you build better websites using the Bootstrap
-            CSS framework! Just download your template and start going, no strings
-            attached!</p>
+          <p style="color: red;">We love banging YOU(r budget) <3</p>
         </div>
       </div>
     </header>
     <section class="no-padding" id="portfolio">
       <div class="container-fluid"></div>
     </section>
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-    <!-- Plugin JavaScript -->
-    <script src="js/jquery.easing.min.js"></script>
-    <script src="js/jquery.fittext.js"></script>
-    <script src="js/wow.min.js"></script>
-    <!-- Custom Theme JavaScript -->
-    <script src="js/creative.js"></script>
-    <div class="modal fade" id="signin">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h4 class="modal-title">Sign In</h4>
-          </div>
-          <div class="modal-body">
-            <form class="form-horizontal" role="form">
-              <div class="form-group">
-                <div class="col-sm-2">
-                  <label for="inputEmail3" class="control-label">Username</label>
-                </div>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" id="inputEmail3" placeholder="Username">
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-2">
-                  <label for="inputPassword3" class="control-label">Password</label>
-                </div>
-                <div class="col-sm-10">
-                  <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                  <div class="checkbox">
-                    <label>
-                      <input type="checkbox">Remember me</label>
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                  <button type="submit" class="btn btn-default">Sign in</button>
-                </div>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <a class="btn btn-default" data-dismiss="modal">Close</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="modal fade" id="signup">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h4 class="modal-title">Sign Up</h4>
-          </div>
-          <div class="modal-body">
-            <p>One fine body...</p>
-            <form class="form-horizontal" role="form">
-              <div class="form-group">
-                <div class="col-sm-2">
-                  <label for="inputEmail3" class="control-label">Email</label>
-                </div>
-                <div class="col-sm-10">
-                  <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-2">
-                  <label for="inputPassword3" class="control-label">Username</label>
-                </div>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" id="inputPassword3" placeholder="Username">
-                </div>
-              </div>
-               <div class="form-group">
-                <div class="col-sm-2">
-                  <label for="inputPassword3" class="control-label">Password</label>
-                </div>
-                <div class="col-sm-10">
-                  <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
-                </div>
-              </div>
-               <div class="form-group">
-                <div class="col-sm-2">
-                  <label for="inputPassword3" class="control-label">Repeat Password</label>
-                </div>
-                <div class="col-sm-10">
-                  <input type="password" class="form-control" id="inputPassword3" placeholder="Repeat password">
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                  <button type="submit" class="btn btn-default">Sign UP</button>
-                </div>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <a class="btn btn-default" data-dismiss="modal">Close</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  
-
-</body></html>
+    {% endblock %}
+    {% block js %}
+    {% endblock %}

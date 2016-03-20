@@ -1,0 +1,144 @@
+{% from "macros.html" import modalGroup %}
+<html><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Creative - Start Bootstrap Theme</title>
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" type="text/css">
+    <!-- Custom Fonts -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='font-awesome/css/font-awesome.min.css') }}" type="text/css">
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animate.min.css') }}" type="text/css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/creative.css') }}" type="text/css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media
+    queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file://
+    -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head><body id="page-top">
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse-toggle">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand page-scroll" href="#page-top">BudgetBanger</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="collapse-toggle">
+          <ul class="nav navbar-nav navbar-right" style="cursor: pointer;">
+          {% if not current_user.is_authenticated %}
+            <li><a data-toggle="modal" data-target="#signup" style="font-size: 22px; padding-bottom: 20px;">Sign up</a></li>
+            <li><a data-toggle="modal" data-target="#signin" style="font-size: 22px; padding-bottom: 20px;">Sign in</a></li>
+          {% else %}
+            <li><a>{{ current_user.user_name }}</a></li>
+            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+          {% endif %}
+          </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container-fluid -->
+    </nav>
+    <article class="flashes row">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <ul>
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                        </ul>
+                    {% endif %}
+                {% endwith %}
+            </article>
+
+    {% block content %}{% endblock %}
+
+    {% if not current_user.is_authenticated %}
+
+    <div class="modal fade" id="signin">
+      <div class="modal-dialog">
+        <div class="modal-content">
+        <form class="form-horizontal" role="form" name="l_form" method="post" action="{{ url_for('login') }}">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title">Sign In</h4>
+          </div>
+          <div class="modal-body">
+              {{ l_form.hidden_tag() }}
+              {{ modalGroup(l_form.user_name, class="form-control") }}
+              {{ modalGroup(l_form.password, class="form-control") }}
+          </div>
+          <div class="modal-footer">
+            <button type="submit" id="submit" name="submit" class="btn btn-primary btn-lg pull-right">Sign in</button>
+            <a class="btn btn-default" data-dismiss="modal">Close</a>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="signup">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title">Sign Up</h4>
+          </div>
+          <div class="modal-body">
+            <p>One fine body...</p>
+            <form class="form-horizontal" role="form" name="r_form" method="post" action="{{ url_for('register') }}">
+
+              {{ r_form.hidden_tag() }}
+              {{ modalGroup(r_form.email, class="form-control") }}
+              {{ modalGroup(r_form.user_name, class="form-control") }}
+              {{ modalGroup(r_form.password, class="form-control") }}
+              {{ modalGroup(r_form.password2, class="form-control") }}
+              <div class="form-group">
+                  <button type="submit" id="submit" name="submit" class="btn btn-primary btn-lg pull-right">Sign UP</button>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <a class="btn btn-default" data-dismiss="modal">Close</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% endif %}
+
+    <!-- jQuery -->
+    <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <!-- Plugin JavaScript -->
+    <script src="{{ url_for('static', filename='js/jquery.easing.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.fittext.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/wow.min.js') }}"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="{{ url_for('static', filename='js/creative.js') }}"></script>
+    <script type="text/javascript">
+      var formErrors = {% if form_errors %}true{% else %}false{% endif %};
+
+      $(document).ready(function() {
+          if (formErrors) {
+              $('.modal').modal('show');
+          }
+      });
+    </script>
+    {% block js %}{% endblock %}
+
+</body></html>
