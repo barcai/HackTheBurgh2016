@@ -8,9 +8,15 @@ give backrefs unique names
 '''
 
 class User(db.Model, UserMixin):
+    __tablename__ = 'User'
     id = db.Column(db.Integer, primary_key = True)
     user_name = db.Column(db.String(100), unique = True)
     email = db.Column(db.String(120), unique = True)
+    level_income = db.Column(db.Integer)
+    level_expenditure = db.Column(db.Integer)
+    current_xp_income = db.Column(db.Integer)
+    current_xp_expenditure = db.Column(db.Integer)
+
 
     password_hash = db.Column(db.String)
 
@@ -41,8 +47,20 @@ class User(db.Model, UserMixin):
         return '<User %r>' % self.user_name
 
 
-class Money(db.Model, UserMixin):
+class Money(db.Model):
+    __tablename__ = 'Money'
     id = db.Column(db.Integer, primary_key = True)
-    type = db.Column(db.String(100), unique = True)
-    email = db.Column(db.String(120), unique = True)
-        
+    user_id = db.Column(db.Integer, db.ForeignKey('User.id'))
+    type = db.Column(db.Boolean)
+    done = db.Column(db.Boolean)
+    desc = db.Column(db.String(120))
+    category = db.Column(db.String(120))
+    amount = db.Column(db.Float)
+
+
+class Periodic(db.Model):
+    __tablename__ = 'Periodic'
+    periodic_id = db.Column(db.Integer, db.ForeignKey('Money.id'), primary_key = True)
+    periodid_length = db.Column(db.Integer)
+    start_date = db.Column(db.String(80))
+    end_date = db.Column(db.String(80))

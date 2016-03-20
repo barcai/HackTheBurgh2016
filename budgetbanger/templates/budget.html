@@ -1,10 +1,195 @@
 {% extends "base.html" %}
-    {% block content %}
-        <div class="section"><div class="container"><div class="row"><div class="col-md-6"><p contenteditable="true"><br><br><br><br><br><br><br><br></p></div><div class="col-md-6"></div></div></div></div>
-        <section class="no-padding" id="portfolio">
-            <div class="container-fluid"></div>
-        </section><div class="section"><div class="container"><div class="row"><div class="col-md-12"><div class="section"><div class="container"><div class="row"><div class="col-md-6"><img src="http://pingendo.github.io/pingendo-bootstrap/assets/placeholder.png" class="img-responsive"></div><div class="col-md-6"><p><br><br><br><br>Income</p><div class="progress"><div class="progress-bar" role="progressbar" style="width: 60%;">60% Complete</div></div><p><br><br><br><br>Expenditure</p><div class="progress"><div class="progress-bar" role="progressbar" style="width: 60%;">60% Complete</div></div></div></div></div></div></div></div></div></div><div class="section"><div class="container"><div class="row"><div class="col-md-12"><div class="section"><div class="container"><div class="row"><div class="col-md-6"><h1>Income</h1></div><div class="col-md-6"><h1>Expenditures</h1></div></div></div></div></div></div></div></div><div class="section"><div class="container"><div class="row"><div class="col-md-6"><div class="section"></div></div><div class="col-md-6"><div class="section"></div></div></div><div class="row"><div class="col-md-6"><a class="btn btn-block btn-info">ADD INCOME</a></div><div class="col-md-6"><a class="btn btn-block btn-info">ADD EXPENDITURE</a></div></div></div></div><div class="section"><div class="container"><div class="row"><div class="col-md-12"><h1>Balance: ££££</h1></div></div></div></div>
-        
+
+{% block nav %}
+<style type="text/css">
+    
+.navbar-default .nav > li>a,
+.navbar-default .nav>li>a:focus {
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 700;
+    color: #000 !important;
+}
+
+.navbar-default .nav > li>a:hover,
+.navbar-default .nav>li>a:focus:hover {
+    color: #f05f40;
+}
+
+.navbar-default .nav > li.active>a,
+.navbar-default .nav>li.active>a:focus {
+    color: #f05f40!important;
+    background-color: transparent;
+}
+</style>
+    {% if not current_user.is_authenticated %}
+    <li><a data-toggle="modal" data-target="#signup" style="font-size: 22px; padding-bottom: 20px;">Sign up</a></li>
+    <li><a data-toggle="modal" data-target="#signin" style="font-size: 22px; padding-bottom: 20px;">Sign in</a></li>
+    {% else %}
+    <li><a>{{ current_user.user_name }}</a></li>
+    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+    {% endif %}
 {% endblock %}
+
+
+{% block content %}
+    <div class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p contenteditable="true"><br><br><br><br><br><br><br><br></p>
+                </div>
+                <div class="col-md-6"></div>
+            </div>
+        </div>
+    </div>
+    <section class="no-padding" id="portfolio">
+        <div class="container-fluid"></div>
+    </section>
+    <div class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <img src="{{ url_for('static', filename='img/backgroundDuck.jpg') }}" class="img-responsive">
+                                </div>
+                                <div class="col-md-6">
+                                    <p><br><br><br><br>Income</p>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: {{ (current_user.current_xp_income*100/xp_per_level) }}%;">{{ (current_user.current_xp_income*100/xp_per_level) }}% Complete</div>
+                                    </div>
+                                    <p><br><br><br><br>Expenditure</p>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: {{ (current_user.current_xp_expenditure*100/xp_per_level) }}%;">{{ (current_user.current_xp_expenditure*100/xp_per_level) }}% Complete</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h1>Income</h1>
+                                </div>
+                                <div class="col-md-6">
+                                    <h1>Expenditures</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style type="text/css">
+      #theList {
+        list-style: none;
+      }
+      #doClearAll {
+        width: auto;
+      }
+      #toDoItem {
+        width: 60%;
+      }
+      #imgtodo {
+        border-radius: 20%;
+        margin-bottom: 5%;
+      }
+      .done {
+        background-color: red;
+      }
+      li input.form-control {
+        padding:0;
+        display: inline;
+        width: 70%;
+      }
+      #theList li span
+      {
+        cursor: move;
+        position: relative;
+        top: 1px;
+        display: inline-block;
+        font-family: 'Glyphicons Halflings';
+        font-style: normal;
+        font-weight: normal;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        padding: 0 10px;
+      }
+      #theList li i
+      {
+        position: relative;
+        top: 1px;
+        display: inline-block;
+        font-style: normal;
+        font-weight: normal;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        padding: 0 5px;
+      }
+    </style>
+    <div class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <form name="income" method="post">
+                      <div class="row control-group">
+                        <div class="form-group col-xs-12">
+                          <input type="text" id="item" name="item" autofocus  class="form-control" placeholder="Income">
+                          <br>
+                          <button name="addToDo" id="addToDo"  class="form-control btn btn-success">Add list item</button>
+                        </div>
+                      </div>
+                      <ul id="theList" class="sortable form-group">
+                      </ul>
+                    </form>
+
+                    <p id="doClearAll" class="button"><a id="clearAll" href="javascript:void();">Clear All</a></p>
+                    <div id="anyad"></div>
+                </div>
+                <div class="col-md-6">
+                    <form name="expenditure" method="post">
+                      <div class="row control-group">
+                        <div class="form-group col-xs-12">
+                          <input type="text" id="expenditure_item" name="item" autofocus  class="form-control" placeholder="Expenditure">
+                          <br>
+                          <button name="addToDo" id="expenditure_addToDo"  class="form-control btn btn-success">Add list item</button>
+                        </div>
+                      </div>
+                      <ul id="expenditure_theList" class="sortable form-group">
+                      </ul>
+                    </form>
+
+                    <p id="expenditure_doClearAll" class="button"><a id="expenditure_clearAll" href="javascript:void();">Clear All</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Balance: ££££</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    {% endblock %}
     {% block js %}
+    <script type="{{ url_for('static', filename='js/budget.js') }}"></script>
     {% endblock %}

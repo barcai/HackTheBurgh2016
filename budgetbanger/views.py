@@ -59,4 +59,13 @@ def logout():
 @app.route("/budget")
 @login_required
 def budget():
-    return render_template("budget.html")
+    return render_template("budget.html", xp_per_level = 50)
+
+
+@app.route("/ajax", methods = ['GET', 'POST'])
+@login_required
+def ajax():
+    if request.method == "POST":
+        return jsonify(request.get_json(force=True))
+    else:
+        return jsonify({"todo":[{"checked":"false","id":"0","value":"This is an example todo"}]})

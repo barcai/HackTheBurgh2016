@@ -31,7 +31,14 @@ def create_and_insert():
 
     db.create_all()
 
-    admin = User(user_name = "admin", email = "admin@admin.com", password = "admin")
+    admin = User(
+        user_name = "admin", 
+        email = "admin@admin.com",
+        level_income = 4,
+        level_expenditure = 5,
+        current_xp_income = 25,
+        current_xp_expenditure = 45,
+        password = "admin")
 
     db.session.add(admin)
 
